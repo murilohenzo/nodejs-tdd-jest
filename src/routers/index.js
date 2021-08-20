@@ -1,9 +1,9 @@
+require('../database');
+
 const express = require('express');
 const routers = express.Router();
 
-require('../database');
-
-const TodoController = require('../controllers/todo.controller');
+const TodoController = require('../controllers/TodoController');
 
 const todoController = new TodoController();
 

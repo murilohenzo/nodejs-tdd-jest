@@ -11,4 +11,6 @@ app.use(routers);
 
 app.listen(3000 || process.env.PORT, () => {
   console.log('🚀 Started server on port 3000');
-})
+});
+
+module.exports = app;

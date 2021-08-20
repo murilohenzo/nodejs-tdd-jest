@@ -1,7 +1,13 @@
+const TodoModel = require('../models/TodoModel');
 class TodoRepository {
-  async create(TodoEntity, Todo) {
-    return await TodoEntity.create(Todo);
+  async create(Todo) {
+    return await TodoModel.create(Todo);
   }
+
+  async findTodoByTitle({ title }) {
+    return await TodoModel.findOne({ title });
+  }
+
 }
 
 module.exports = TodoRepository;

@@ -1,13 +1,15 @@
-const TodoRepository = require('../repositories/TodoRepository');
 class TodoService {
-  async create(TodoDTO) {
-    const todoRepository = new TodoRepository();
+  constructor(TodoRepository) {
+    this.TodoRepository = TodoRepository;
+  }
 
-    const checkTodoExists = await todoRepository.findTodoByTitle(TodoDTO);
+  async create(TodoDTO) {
+    const _todoRepository = new this.TodoRepository();
+    const checkTodoExists = await _todoRepository.findTodoByTitle(TodoDTO);
     if (checkTodoExists) {
       throw new Error('Todo already exists');
     } else {
-      const createdTodo = await todoRepository.create(TodoDTO);
+      const createdTodo = await _todoRepository.create(TodoDTO);
       return createdTodo;
     }
   }

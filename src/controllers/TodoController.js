@@ -9,7 +9,8 @@ class TodoController {
       const { title, done } = request.body;
       const todo = new TodoDTO(title, done);
 
-      const todoService = new TodoService(TodoRepository);
+      const todoRepository = new TodoRepository();
+      const todoService = new TodoService(todoRepository);
       const createTodo = await todoService.create(todo);
       return response.status(201).json(createTodo);
     } catch(err){

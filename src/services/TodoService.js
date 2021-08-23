@@ -8,8 +8,7 @@ class TodoService {
     if (checkTodoExists) {
       throw new Error('Todo already exists');
     } else {
-      const createdTodo = await this.todoRepository.create(todoDTO);
-      return createdTodo;
+      return this.todoRepository.create(todoDTO);;
     }
   }
 
@@ -46,7 +45,7 @@ class TodoService {
   async delete(id) {
     const checkTodoExists = await this.todoRepository.findById(id);
     if (checkTodoExists) {
-      return await this.todoRepository.delete(id);
+      return this.todoRepository.delete(id);
     } else {
       throw new Error('Todo not exists');
     }

@@ -2,7 +2,7 @@ const TodoDTO = require('../../dtos/TodoDTO');
 
 class TodoDTOBuilder {
 
-  constructor(title = "unit test", done = false) {
+  constructor(title, done = false) {
     this.title = title;
     this.done = done;
   }

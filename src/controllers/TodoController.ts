@@ -1,24 +1,24 @@
-const TodoService = require('../services/TodoService');
-const TodoRepository = require('../repositories/TodoRepository');
-const TodoDTO = require('../dtos/TodoDTO');
+import { Request, Response, NextFunction } from "express";
+import TodoDTO from "../dtos/TodoDTO";
+import TodoRepository from "../repositories/TodoRepository";
+import TodoService from "../services/TodoService";
 
 class TodoController {
-  async create(request, response, next) {
-
+  async create(request: Request, response: Response, next: NextFunction): Promise<Response> {
     try{
-      const { title, done } = request.body;
-      const todo = new TodoDTO(title, done);
+      const { title, done }: TodoDTO = request.body;
 
       const todoRepository = new TodoRepository();
       const todoService = new TodoService(todoRepository);
-      const createTodo = await todoService.create(todo);
+
+      const createTodo = await todoService.create({title, done});
       return response.status(201).json(createTodo);
     } catch(err){
       return response.status(400).json({ error: err.message });
     }
   }
 
-  async findAll(request, response, next) {
+  async findAll(request: Request, response: Response, next: NextFunction): Promise<Response> {
     try {
       const todoRepository = new TodoRepository();
       const todoService = new TodoService(todoRepository);
@@ -31,7 +31,7 @@ class TodoController {
     }
   }
 
-  async findById(request, response, next) {
+  async findById(request: Request, response: Response, next: NextFunction): Promise<Response> {
     try {
       const { id } = request.params;
 
@@ -45,7 +45,7 @@ class TodoController {
     }
   }
 
-  async update(request, response, next) {
+  async update(request: Request, response: Response, next: NextFunction): Promise<Response> {
     try {
       const { id } = request.params;
       const { done } = request.body;
@@ -60,7 +60,7 @@ class TodoController {
     }
   }
 
-  async delete(request, response, next) {
+  async delete(request: Request, response: Response, next: NextFunction): Promise<Response> {
     try{
       const { id } = request.params;
 

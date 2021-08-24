@@ -7,7 +7,7 @@ const endpointURL = process.env.URL;
 describe(endpointURL, () => {
 
   it('POST' + endpointURL, async () => {
-    const createdTodoDTOBuilder = new TodoDTOBuilder().builderDTO();
+    const createdTodoDTOBuilder = new TodoDTOBuilder("Integration test").builderDTO();
 
     const response = await request(app)
       .post(endpointURL)

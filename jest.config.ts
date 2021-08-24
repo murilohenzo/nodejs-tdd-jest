@@ -3,7 +3,7 @@ module.exports = {
   // automock: false,
 
   // Stop running tests after `n` failures
-  // bail: 0,
+  bail: true,
 
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "C:\\Users\\danil\\AppData\\Local\\Temp\\jest",
@@ -16,7 +16,7 @@ module.exports = {
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
-    '<rootDir>/src/test/**/*.js'
+    '<rootDir>/src/test/**/*.ts'
   ],
 
   // The directory where Jest should output its coverage files
@@ -141,8 +141,8 @@ module.exports = {
 
   // The glob patterns Jest uses to detect test files
   testMatch: [
-    '**/*.spec.js',
-    '**/*.test.js'
+    '**/*.spec.ts',
+    '**/*.test.ts'
   ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped

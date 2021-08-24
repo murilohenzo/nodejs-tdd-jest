@@ -1,8 +1,7 @@
-class AppError {
-  constructor (message, statusCode = 400) {
+export default class AppError extends Error {
+  constructor (public message: string, public statusCode = 400) {
+    super()
     this.message = message
     this.statusCode = statusCode
   }
 }
-
-module.exports = AppError

@@ -1,26 +1,27 @@
-const FakeTodoRepository = require('../fakes/FakeTodoRepository');
-const TodoService = require('../../services/TodoService');
-const TodoDTOBuilder = require('../builder/TodoDTOBuilder');
+import TodoDTOBuilder from "../builder/TodoDTOBuilder";
+import FakeTodoRepository from "../fakes/FakeTodoRepository";
+import TodoService from "../../services/TodoService";
+import AppError from "../../errors/AppError";
 
-let todoService
 describe("CreateTodo", () => {
-  beforeEach(() => {
-    const fakeTodoRepository = new FakeTodoRepository();
-    todoService = new TodoService(fakeTodoRepository);
-  })
 
   it("should create a new Todo", async () => {
-    const todo = await todoService.create(new TodoDTOBuilder("Unit test").builderDTO());
+    const fakeTodoRepository = new FakeTodoRepository();
+    const createTodo = new TodoService(fakeTodoRepository);
+
+    const todo = await createTodo.create(new TodoDTOBuilder("Unit test"));
 
     expect(todo).toHaveProperty('_id');
   });
 
-  it("should not be able to create a new user with same email from another", async () => {
-    const todo =  await todoService.create(new TodoDTOBuilder("Study React").builderDTO());
-    const todo2 = await todoService.create(new TodoDTOBuilder("Study React").builderDTO());
+  it("should not be able to create a new todo with same title from another", async () => {
+    const fakeTodoRepository = new FakeTodoRepository();
+    const createTodo = new TodoService(fakeTodoRepository);
+    
+    const todoDTOBuilder = new TodoDTOBuilder("Unit test");
 
-    expect(
-      "a"
-    ).toBE(Error);
+    await createTodo.create(todoDTOBuilder);
+
+    expect(await createTodo.create(todoDTOBuilder)).toBe(AppError);
   });
 });

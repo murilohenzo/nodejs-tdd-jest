@@ -1,15 +1,12 @@
-const TodoDTO = require('../../dtos/TodoDTO');
+import TodoDTO from "../../dtos/TodoDTO";
 
-class TodoDTOBuilder {
+export default class TodoDTOBuilder implements TodoDTO {  
+
+  title: string;
+  done: boolean;
 
   constructor(title, done = false) {
     this.title = title;
     this.done = done;
   }
-
-  builderDTO() {
-    return new TodoDTO(this.title, this.done);
-  }
 }
-
-module.exports = TodoDTOBuilder;

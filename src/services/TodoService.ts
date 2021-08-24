@@ -1,7 +1,6 @@
 import ITodoRepository from "../repositories/ITodoRepository";
 import TodoDTO from "../dtos/TodoDTO";
-const AppError = require('../errors/AppError');
-
+import AppError from "../errors/AppError";
 
 export default class TodoService {
   private _todoRepository: ITodoRepository;
@@ -12,7 +11,7 @@ export default class TodoService {
   async create(todo: TodoDTO): Promise<TodoDTO | undefined> {
     const checkTodoExists = await this._todoRepository.findByTitle(todo.title);
     if (checkTodoExists) {
-      throw new AppError('Todo already exists'); 
+      throw new AppError("Todo already exists");
     }
     return this._todoRepository.create(todo);
   } 
@@ -38,9 +37,7 @@ export default class TodoService {
   async update(id: string, done: boolean): Promise<TodoDTO | undefined> {
     const todoFound = await this._todoRepository.findById(id);
     if (todoFound) {
-      console.log(done)
       const updatedTodo = await this._todoRepository.update(id, done);
-      console.log(updatedTodo);
       return updatedTodo;
     } else {
       throw new Error('Todo not exists');

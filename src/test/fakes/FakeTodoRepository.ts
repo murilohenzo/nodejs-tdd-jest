@@ -1,9 +1,8 @@
-const { uuid } = require('uuidv4');
-const TodoModel = require('../../models/TodoModel');
-class FakeTodoRepository {
-  constructor(todos = []) {
-    this.todos = todos;
-  }
+import { uuid } from "uuidv4";
+import TodoModel from '../../models/TodoModel';
+import TodoDTO from "../../dtos/TodoDTO";
+export default class FakeTodoRepository {
+  private todos: TodoDTO[] = [];
 
   async create(todoDTOBuilder) {
     const todo = new TodoModel();
@@ -15,10 +14,8 @@ class FakeTodoRepository {
     }
   }
 
-  async findTodoByTitle(todoDTOBuilder) {
-    const existsTodo = this.todos.find(todo => todo.title === todoDTOBuilder.title);
+  async findByTitle(title: string) {
+    const existsTodo = this.todos.find(todo => todo.title === title);
     return existsTodo;
   }
 }
-
-module.exports = FakeTodoRepository;

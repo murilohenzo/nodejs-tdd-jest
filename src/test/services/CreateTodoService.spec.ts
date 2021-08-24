@@ -20,8 +20,10 @@ describe("CreateTodo", () => {
     
     const todoDTOBuilder = new TodoDTOBuilder("Unit test");
 
-    await createTodo.create(todoDTOBuilder);
-
-    expect(await createTodo.create(todoDTOBuilder)).toBe(AppError);
+    expect(async () => {
+      await createTodo.create(todoDTOBuilder);
+      await createTodo.create(todoDTOBuilder);
+      console.log(await createTodo.create(todoDTOBuilder))
+    }).rejects.toBeInstanceOf(AppError);
   });
 });

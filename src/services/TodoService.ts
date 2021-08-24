@@ -3,8 +3,7 @@ import TodoDTO from "../dtos/TodoDTO";
 import AppError from "../errors/AppError";
 
 export default class TodoService {
-  private _todoRepository: ITodoRepository;
-  constructor(_todoRepository) {
+  constructor(private _todoRepository: ITodoRepository) {
     this._todoRepository = _todoRepository;
   }
 
@@ -18,7 +17,7 @@ export default class TodoService {
 
   async findAll(): Promise<TodoDTO[] | undefined> {
     const todos = await this._todoRepository.findAll();
-    if (todos.length > 0) {
+    if (todos && todos.length > 0) {
       return todos;
     } else {
       throw new Error('Not exists todos');

@@ -1,6 +1,5 @@
-export default class AppError extends Error {
+export default class AppError {
   constructor (public message: string, public statusCode = 400) {
-    super()
     this.message = message
     this.statusCode = statusCode
   }

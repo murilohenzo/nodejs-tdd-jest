@@ -2,7 +2,14 @@ import TodoModel from "../models/TodoModel";
 import TodoDTO from "../dtos/TodoDTO";
 import ITodoRepository from "./ITodoRepository";
 
-export default class TodoRepository implements ITodoRepository{
+import { Document } from "mongoose";
+interface TodoDTOWithDocumentProps extends Document {
+  id?: string;
+  title: string;
+  done: boolean;
+}
+
+class TodoRepository implements ITodoRepository{
   async create(todo: Omit<TodoDTO, "_id">): Promise<TodoDTO | undefined> {
     return TodoModel.create(todo);
   }
@@ -11,19 +18,22 @@ export default class TodoRepository implements ITodoRepository{
     return TodoModel.find();
   }
 
-  async findByTitle(title: string ): Promise<TodoDTO | undefined> {
+  async findByTitle(title: string ): Promise<TodoDTO | undefined | null> {
     return TodoModel.findOne({ title });
   }
 
-  async findById(id: string): Promise<TodoDTO | undefined> {
+  async findById(id: string): Promise<TodoDTO | undefined | null> {
     return TodoModel.findById({ _id: id });
   }
 
-  async update(id: string, done: boolean): Promise<TodoDTO | undefined> {
-    return TodoModel.findOneAndUpdate({ _id: id }, { done: done });
+  async update(todo: Omit<TodoDTOWithDocumentProps, "_id">, done: boolean): Promise<TodoDTO | undefined | null> {
+    todo.done = done;
+    return await todo.save();
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string) {
     return TodoModel.deleteOne({ _id: id });
   }
 }
+
+export default new TodoRepository();

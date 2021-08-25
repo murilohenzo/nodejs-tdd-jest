@@ -7,7 +7,7 @@ export default class TodoService {
     this._todoRepository = _todoRepository;
   }
 
-  async create(todo: TodoDTO): Promise<TodoDTO | undefined> {
+  async create(todo: TodoDTO): Promise<TodoDTO | undefined | null> {
     const checkTodoExists = await this._todoRepository.findByTitle(todo.title);
     if (checkTodoExists) {
       throw new AppError("Todo already exists");
@@ -36,8 +36,8 @@ export default class TodoService {
   async update(id: string, done: boolean): Promise<TodoDTO | undefined> {
     const todoFound = await this._todoRepository.findById(id);
     if (todoFound) {
-      const updatedTodo = await this._todoRepository.update(id, done);
-      return updatedTodo;
+      await this._todoRepository.update(todoFound, done);
+      return todoFound;
     } else {
       throw new Error('Todo not exists');
     }

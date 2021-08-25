@@ -5,7 +5,7 @@ import ITodoRepository from "repositories/ITodoRepository";
 export default class FakeTodoRepository implements ITodoRepository {
   private todos: TodoDTO[] = [];
 
-  async create(todo: TodoDTO): Promise<TodoDTO> {
+  async create(todo: TodoDTO): Promise<TodoDTO | null | undefined> {
     const createdTodo = new TodoModel();
 
       Object.assign(createdTodo, { _id: uuid() }, todo);
@@ -13,16 +13,16 @@ export default class FakeTodoRepository implements ITodoRepository {
       return createdTodo;
   }
 
-  findAll(): Promise<TodoDTO[]> {
+  findAll(): Promise<TodoDTO[] | null | undefined> {
     throw new Error("Method not implemented.");
   }
-  findById(id: string): Promise<TodoDTO | undefined> {
+  findById(id: string): Promise<TodoDTO | null | undefined> {
     throw new Error("Method not implemented.");
   }
-  update(id: string, done: boolean): Promise<TodoDTO | undefined> {
+  update(todo: Omit<TodoDTO, "_id">, done: boolean): Promise<TodoDTO | null | undefined> {
     throw new Error("Method not implemented.");
   }
-  delete(id: string): Promise<void> {
+  delete(id: string): void {
     throw new Error("Method not implemented.");
   }
 

@@ -8,8 +8,7 @@ class TodoController {
     try{
       const { title, done }: TodoDTO = request.body;
 
-      const todoRepository = new TodoRepository();
-      const todoService = new TodoService(todoRepository);
+      const todoService = new TodoService(TodoRepository);
 
       const createTodo = await todoService.create({title, done});
       return response.status(201).json(createTodo);
@@ -20,8 +19,7 @@ class TodoController {
 
   async findAll(request: Request, response: Response, next: NextFunction): Promise<Response> {
     try {
-      const todoRepository = new TodoRepository();
-      const todoService = new TodoService(todoRepository);
+      const todoService = new TodoService(TodoRepository);
 
       const todos = await todoService.findAll();
 
@@ -35,8 +33,7 @@ class TodoController {
     try {
       const { id } = request.params;
 
-      const todoRepository = new TodoRepository();
-      const todoService = new TodoService(todoRepository);
+      const todoService = new TodoService(TodoRepository);
 
       const todo = await todoService.findById(id);
       return response.status(200).json(todo);
@@ -50,8 +47,7 @@ class TodoController {
       const { id } = request.params;
       const { done } = request.body;
 
-      const todoRepository = new TodoRepository();
-      const todoService = new TodoService(todoRepository);
+      const todoService = new TodoService(TodoRepository);
 
       const todo = await todoService.update(id, done);
       return response.status(200).json(todo);
@@ -64,8 +60,7 @@ class TodoController {
     try{
       const { id } = request.params;
 
-      const todoRepository = new TodoRepository();
-      const todoService = new TodoService(todoRepository);
+      const todoService = new TodoService(TodoRepository);
 
       await todoService.delete(id);
       return response.status(200).json({ message: "Deleted successfully"})

@@ -5,7 +5,7 @@ import AppError from "../../errors/AppError";
 
 describe("CreateTodo", () => {
 
-  it("should create a new Todo", async () => {
+  it("should be able create a new Todo", async () => {
     const fakeTodoRepository = new FakeTodoRepository();
     const createTodo = new TodoService(fakeTodoRepository);
 

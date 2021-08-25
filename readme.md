@@ -14,6 +14,6 @@
 
 # Use cases
 ## Use case 01 (Create new Todo)
-  As a system user
-  - Should be able create a new Todo [ x ]
-  - It is not possible to repeat a whole with the same title already registered [x]
+  As a system user.
+  - [x] Should be able create a new Todo. 
+  - [x] It is not possible to repeat a whole with the same title already registered.
